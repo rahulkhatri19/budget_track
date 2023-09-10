@@ -1,13 +1,29 @@
+import 'package:budget_track/utils/Constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:intl/intl.dart';
 
-class CreateRecord extends StatelessWidget{
+import 'createRecordUI.dart';
+
+class CreateRecord extends StatefulWidget{
   const CreateRecord({super.key});
 
   @override
+  State<CreateRecord> createState() => _CreateRecordState();
+}
+
+class _CreateRecordState extends State<CreateRecord> {
+
+  final addNoteTxt = TextEditingController();
+  final addAmountTxt = TextEditingController();
+  RxString timePicked = "".obs;
+  RxString datePicked = DateFormat(Constant.recordDateFormat).format(DateTime.now()).toString().obs;
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return DefaultTabController(
       length: 3,
+      initialIndex: 1,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -37,12 +53,40 @@ class CreateRecord extends StatelessWidget{
         ),
         body: TabBarView(
           children: [
-            Icon(Icons.close),
-            Icon(Icons.check),
-            Icon(Icons.check_box),
+            incomeTab(),
+            expenseTab(),
+            transferTab(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget incomeTab(){
+    return Column(
+      children: [
+        Icon(Icons.check),
+        Icon(Icons.close)
+      ],
+    );
+  }
+  Widget expenseTab(){
+    return Column(
+      children: [
+        accountCategory(),
+        addNote(addNoteTxt),
+        dateTime(context, datePicked, timePicked),
+        amountUI(addAmountTxt),
+        numberCalculation()
+      ],
+    );
+  }
+  Widget transferTab(){
+    return Column(
+      children: [
+        Icon(Icons.chair),
+        Icon(Icons.close)
+      ],
     );
   }
 }
