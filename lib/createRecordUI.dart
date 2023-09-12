@@ -80,7 +80,7 @@ Widget amountUI(TextEditingController addAmountTxt) {
             autocorrect: false,
             maxLines: 1,
             controller: addAmountTxt,
-            decoration: InputDecoration.collapsed(
+            decoration: const InputDecoration.collapsed(
               hintText: "0",
             ),
           ),
@@ -94,20 +94,20 @@ Widget amountUI(TextEditingController addAmountTxt) {
   );
 }
 
-Widget numberCalculation(){
+Widget numberCalculation() {
   return Column(
-      children: [
-        numberCalculationUI("7", "8", "9", "/"),
-        numberCalculationUI("4", "5", "6", "X"),
-        numberCalculationUI("1", "2", "3", "-"),
-        numberCalculationUI(".", "0", "=", "+"),
-      ],
+    children: [
+      numberCalculationUI("7", "8", "9", "/"),
+      numberCalculationUI("4", "5", "6", "X"),
+      numberCalculationUI("1", "2", "3", "-"),
+      numberCalculationUI(".", "0", "=", "+"),
+    ],
   );
 }
 
 Widget accountCategoryUI(String topText, String bottomText) {
   return Padding(
-    padding: EdgeInsets.only(top: 10),
+    padding: const EdgeInsets.only(top: 10),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [Text(topText), Text(bottomText)],
@@ -115,14 +115,29 @@ Widget accountCategoryUI(String topText, String bottomText) {
   );
 }
 
-Widget numberCalculationUI(String text1, String text2, String text3, String text4){
+Widget numberCalculationUI(
+    String text1, String text2, String text3, String text4) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
-      Text(text1),
-      Text(text2),
-      Text(text3),
-      Text(text4),
+      numberBackground(text1),
+      numberBackground(text2),
+      numberBackground(text3),
+      numberBackground(text4),
     ],
+  );
+}
+
+Widget numberBackground(String text) {
+  return GestureDetector(
+    onTap: () {},
+    child: Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.brown, width: 1),
+          borderRadius: BorderRadius.circular(10)),
+      child: Text(text),
+    ),
   );
 }

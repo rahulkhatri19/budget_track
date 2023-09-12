@@ -1,6 +1,8 @@
 import 'package:budget_track/CreateRecord.dart';
 import 'package:flutter/material.dart';
 
+import 'localDb/database_repository.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -68,6 +70,16 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+  void initDb() async {
+    await DatabaseRepository.instance.database;
+  }
+
+  @override
+  void initState() {
+    initDb();
+    super.initState();
   }
 
   @override
