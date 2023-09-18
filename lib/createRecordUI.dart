@@ -37,7 +37,6 @@ Widget addNote(TextEditingController addNoteTxt) {
 }
 
 Widget dateTime(BuildContext context, RxString stDate, RxString stTime) {
-  stTime = TimeOfDay.now().format(context).obs;
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [

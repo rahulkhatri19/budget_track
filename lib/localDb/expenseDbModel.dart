@@ -1,7 +1,7 @@
 import 'dart:core';
 
 class ExpenseDbModel {
-  final int id;
+  final int? id;
   final String account;
   final String category;
   final String expenseNote;
@@ -11,7 +11,7 @@ class ExpenseDbModel {
   final String currency;
 
   ExpenseDbModel(
-      {required this.id,
+      {this.id,
       required this.account,
       required this.category,
       required this.expenseNote,
