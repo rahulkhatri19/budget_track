@@ -36,6 +36,8 @@ class _CreateRecordState extends State<CreateRecord> {
             icon: const Icon(Icons.close),
             color: Colors.black,
             onPressed: () {
+            //  deleteExpanse(expenseId: 1, context: context);
+           //   updateExpense();
               getExpanse();
             },
           ),
@@ -110,6 +112,19 @@ class _CreateRecordState extends State<CreateRecord> {
     await DatabaseRepository.instance.insert(expenseDbModel: expenseDbModel);
   }
 
+  void updateExpense() async {
+    ExpenseDbModel expenseDbModel = ExpenseDbModel(
+        id: 3,
+        account: 'Online Food',
+        category: 'Food & Drink',
+        expenseNote: addNoteTxt.text,
+        date: datePicked.value,
+        time: timePicked.value,
+        amount: addAmountTxt.text,
+        currency: '₹');
+    await DatabaseRepository.instance.update(expenseDbModel);
+  }
+
   void getExpanse() async {
     await DatabaseRepository.instance.getAllExpense().then((value) {
       int i = 0;
@@ -120,5 +135,16 @@ class _CreateRecordState extends State<CreateRecord> {
         i++;
       }
     }).catchError((e) => debugPrint(e.toString()));
+  }
+
+  void deleteExpanse(
+      {required int expenseId, required BuildContext context}) async {
+    DatabaseRepository.instance.delete(expenseId).then((value) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Expense Deleted')));
+    }).catchError((e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    });
   }
 }

@@ -55,4 +55,27 @@ class DatabaseRepository {
 
     return result.map((json) => ExpenseDbModel.fromJson(json)).toList();
   }
+
+  Future<void> delete(int id) async {
+    try {
+      final db = await instance.database;
+      await db.delete(Constant.expenseTable, where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> update(ExpenseDbModel expense) async {
+    try {
+      final db = await instance.database;
+      db.update(
+        Constant.expenseTable,
+        expense.toMap(),
+        where: 'id = ?',
+        whereArgs: [expense.id],
+      );
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
